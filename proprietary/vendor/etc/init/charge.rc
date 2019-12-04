@@ -1,0 +1,16 @@
+on early-init
+    start ueventd
+
+on charger
+    class_start charger
+
+service ueventd /sbin/ueventd
+    class core
+    critical
+    seclabel u:r:ueventd:s0
+    shutdown critical
+
+service charge /vendor/bin/charge
+    class charger
+    user root
+    oneshot
